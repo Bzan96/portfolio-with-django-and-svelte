@@ -1,5 +1,7 @@
 <script lang="ts">
     import Layout from "../__layout.svelte";
+
+    const pageTitle = "Blog";
 </script>
 
-<svelte:component this={Layout} pageTitle="Home"></svelte:component>
+<Layout pageTitle={pageTitle}></Layout>

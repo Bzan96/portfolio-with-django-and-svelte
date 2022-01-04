@@ -43,8 +43,8 @@
 </style>
 
 <article>
-    <svelte:component this={CardTopLine} />
-    <svelte:component this={CardLeftLine} />
+    <CardTopLine />
+    <CardLeftLine />
     <section>
         <h3>{cardHeading}</h3>
         <p>{cardExcerpt}</p>

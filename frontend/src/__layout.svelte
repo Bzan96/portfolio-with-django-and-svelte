@@ -32,17 +32,17 @@
     <title>{pageTitle}</title>
 </svelte:head>
 
-<svelte:component this={ThemeContext}>
-    <svelte:component this={Header} />
+<ThemeContext>
+    <Header />
     
     <div class="misc">
-        <svelte:component this={Breadcrumbs} />
-        <svelte:component this={ThemeToggle} />
+        <Breadcrumbs />
+        <ThemeToggle />
     </div>
     
     <main>
         <slot />
     </main>
     
-    <svelte:component this={Footer} />
-</svelte:component>
+    <Footer />
+</ThemeContext>

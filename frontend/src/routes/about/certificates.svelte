@@ -15,7 +15,7 @@
         --transform-amount: 25px;
         position: relative;
         z-index: 1;
-        margin-bottom: var(--transform-amount);
+        margin-bottom: calc(var(--transform-amount) * -1);
 
         a {
             cursor: pointer;
@@ -24,7 +24,7 @@
             display: inline-block;
             transform: translateY(-75px);
             transition: transform .3s ease-in, z-index 0s .3s;
-            box-shadow: 7px 7px 5px 2px var(--box-shadow);
+            box-shadow: 5px 7px 5px 2px var(--box-shadow);
             
             figure {
                 img {
@@ -44,12 +44,12 @@
     }
 </style>
 
-<svelte:component this={Layout} pageTitle="{pageTitle} | {subPageTitle}">
+<Layout pageTitle="{pageTitle} | {subPageTitle}">
     <h1>{subPageTitle}</h1>
     {#each images as { name, image: {src, alt}, excerpt }}
-        <svelte:component this={Divider} />
+        <Divider />
         <section>
-            <svelte:component this={Card} cardHeading={name} cardExcerpt={excerpt} />
+            <Card cardHeading={name} cardExcerpt={excerpt} />
             <a href={src} aria-label="See the certificate in full size in another tab" target="_blank">
                 <figure>
                     <img src={src} alt={alt} />      
@@ -59,10 +59,10 @@
         </section>
     {/each}
     {#each links as { name, link, excerpt }}
-        <svelte:component this={Divider} />
+        <Divider />
         <section>
-            <svelte:component this={Card} cardHeading={name} cardExcerpt={excerpt} />
+            <Card cardHeading={name} cardExcerpt={excerpt} />
             <a href={link.src} aria-label={link["aria-label"]} target="_blank">{name}</a>
         </section>
     {/each}
-</svelte:component>
+</Layout>

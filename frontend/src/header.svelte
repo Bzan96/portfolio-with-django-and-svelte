@@ -67,7 +67,7 @@
     <a href="/">
         <img src="/kris-150x150.png" alt="Site logo" height="48" width="48">
     </a>
-    <svelte:component this={HeaderLine} />
-    <svelte:component this={Hamburger} {handleMenu} />
-    <svelte:component this={MobileMenu} {menuIsOpen} />
+    <HeaderLine />
+    <Hamburger {handleMenu} />
+    <MobileMenu {menuIsOpen} />
 </header>

@@ -1,9 +1,28 @@
 <script lang="ts">
     import { browser } from "$app/env";
+    import { onMount } from "svelte";
+    import type { Nullable } from "../types";
 
-    const offset = 25;
-    const maxWidth = browser ? Math.floor(document.documentElement.scrollWidth + offset) : 0;
-    const midWayWidth = Math.floor(maxWidth / 3 + offset) ?? 0;
+    let path: Nullable<string> = undefined;
+    let maxWidth = 0;
+
+    const updatePath = () => {
+        if(browser) {
+            const offset = 25;
+            maxWidth = Math.floor(document.documentElement.scrollWidth + offset)
+            const midWayWidth = Math.floor(maxWidth / 3 + offset) ?? 0;
+
+            if(window.matchMedia('max-width: 500px').matches) {
+                path = `M-25 125 S50 25 ${midWayWidth} 60 S355 50 ${maxWidth} 25`;
+             } else {
+                path = `M-25 125 S50 25 ${midWayWidth} 80 S355 20 ${maxWidth} 55`;
+             }
+        }
+    }
+
+    onMount(() => {
+        updatePath();
+    })
 </script>
 
 <style lang="scss" >
@@ -13,10 +32,9 @@
     }
 </style>
 
-<svg height="125" width={maxWidth} class="divider">
-    <path d="M-25 125 S50 25 {midWayWidth} 60 S355 50 {maxWidth} 25" stroke="currentColor" stroke-width="5" fill="none" />
-</svg>
+<svelte:window on:resize={updatePath} />
 
-<!-- <svg height="100" width="400" class="divider">
-    <path d="M-25 100 S50 25 150 60 S355 50 400 0" stroke="currentColor" stroke-width="5" fill="none" />
-</svg> -->
+<!-- d="M-25 100 S50 25 150 60 S355 50 400 0" -->
+<svg height="125" width={maxWidth} class="divider">
+    <path d={path} stroke="currentColor" stroke-width="5" fill="none" />
+</svg>

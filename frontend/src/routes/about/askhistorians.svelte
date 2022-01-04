@@ -2,4 +2,4 @@
     import Layout from "../../__layout.svelte";
 </script>
 
-<svelte:component this={Layout} pageTitle="About | AskHistorians"></svelte:component>
+<Layout pageTitle="About | AskHistorians"></Layout>

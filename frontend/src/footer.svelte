@@ -148,7 +148,7 @@
     }
 </style>
 
-<svelte:component this={Divider} />
+<Divider />
 
 <footer>
     <div>

@@ -57,7 +57,7 @@
 </style>
 
 <nav style="--nav-height: {menuIsOpen ? '100vh' : '0vh'}">
-    <svelte:component this={Divider} />
+    <Divider />
     <ul>
         {#each menuItems as menuItem}
             <a href={menuItem.route}>
@@ -66,5 +66,5 @@
             </a>
         {/each}
     </ul>
-    <svelte:component this={Divider} />
+    <Divider />
 </nav>

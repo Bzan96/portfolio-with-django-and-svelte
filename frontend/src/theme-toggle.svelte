@@ -2,7 +2,9 @@
     import { getContext } from "svelte";
     import type { ThemeContext } from "./theme-context.svelte";
 
-    const { toggleTheme } = getContext<ThemeContext>('theme');
+    const { theme, toggleTheme } = getContext<ThemeContext>('theme');
+
+    const isLight = theme === 'light';
 </script>
 
 <style lang="scss">
@@ -100,12 +102,12 @@
     <legend>
       Theme
     </legend>
-    <input type="radio" name="theme" id="light" checked on:click={() => toggleTheme('light')}>
+    <input type="radio" name="theme" id="light" checked={isLight} on:click={() => toggleTheme('light')}>
     <label for="light">
       <span class="visually-hidden">Light</span>
     </label>
   
-    <input type="radio" name="theme" id="dark" on:click={() => toggleTheme('dark')}>
+    <input type="radio" name="theme" id="dark" checked={!isLight} on:click={() => toggleTheme('dark')}>
     <label for="dark">
       <span class="visually-hidden">Dark</span>
     </label>
