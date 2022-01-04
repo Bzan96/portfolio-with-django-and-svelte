@@ -1,9 +1,7 @@
 <!-- <script lang="ts">
     
 </script> -->
-
 <style lang="scss">
-    nav {
-        
-    }
+	nav {
+	}
 </style>

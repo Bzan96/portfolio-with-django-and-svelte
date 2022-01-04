@@ -1,67 +1,67 @@
 <script lang="ts" context="module">
-    type ThemeType = 'light' | 'dark';
+	type ThemeType = 'light' | 'dark';
 
-    export type ThemeContext = {
-        theme: ThemeType,
-        toggleTheme: (theme: ThemeType) => void;
-    }
+	export type ThemeContext = {
+		theme: ThemeType;
+		toggleTheme: (theme: ThemeType) => void;
+	};
 </script>
 
 <script lang="ts">
-    import { onMount, setContext } from "svelte";
-    import { writable } from "svelte/store";
+	import { onMount, setContext } from 'svelte';
+	import { writable } from 'svelte/store';
 
-    let chosenTheme: ThemeType | undefined;
+	let chosenTheme: ThemeType | undefined;
 
-    const Theme = writable(chosenTheme)
+	const Theme = writable(chosenTheme);
 
-    const setCSSVariables = (theme: ThemeType) => {
-        const svelteElementClassList = document.getElementById('svelte').classList;
-        
-        ['light', 'dark'].forEach((currentTheme) => {
-            if(svelteElementClassList.contains(currentTheme)) {
-                svelteElementClassList.remove(currentTheme)
-            }
-        })
+	const setCSSVariables = (theme: ThemeType) => {
+		const svelteElementClassList = document.getElementById('svelte').classList;
 
-        chosenTheme = theme;
-        svelteElementClassList.add(theme)
-    }
+		['light', 'dark'].forEach((currentTheme) => {
+			if (svelteElementClassList.contains(currentTheme)) {
+				svelteElementClassList.remove(currentTheme);
+			}
+		});
 
-    setContext<ThemeContext>('theme', {
-        theme: chosenTheme,
-        toggleTheme: (theme: ThemeType) => {
-            Theme.update(() => {
-                setCSSVariables(theme)
-                window.localStorage.setItem('theme', theme)
-                return theme;
-            })
-        }
-    })
+		chosenTheme = theme;
+		svelteElementClassList.add(theme);
+	};
 
+	setContext<ThemeContext>('theme', {
+		theme: chosenTheme,
+		toggleTheme: (theme: ThemeType) => {
+			Theme.update(() => {
+				setCSSVariables(theme);
+				window.localStorage.setItem('theme', theme);
+				return theme;
+			});
+		},
+	});
 
-    onMount(() => {
-        const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	onMount(() => {
+		const userPrefersDark =
+			window.matchMedia &&
+			window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-        const storedTheme = window.localStorage.getItem('theme');
+		const storedTheme = window.localStorage.getItem('theme');
 
-        const shouldTriggerDark = storedTheme === 'dark' || userPrefersDark;
+		const shouldTriggerDark = storedTheme === 'dark' || userPrefersDark;
 
-        if(shouldTriggerDark) {
-            (document.getElementById('light') as HTMLInputElement).checked = false;
-            (document.getElementById('dark') as HTMLInputElement).checked = true;
-            
-            setCSSVariables('dark')
-        }
+		if (shouldTriggerDark) {
+			(document.getElementById('light') as HTMLInputElement).checked = false;
+			(document.getElementById('dark') as HTMLInputElement).checked = true;
 
-        if(!shouldTriggerDark) {
-            (document.getElementById('light') as HTMLInputElement).checked = true;
-            (document.getElementById('dark') as HTMLInputElement).checked = false;
+			setCSSVariables('dark');
+		}
 
-            setCSSVariables('light')
-        }
+		if (!shouldTriggerDark) {
+			(document.getElementById('light') as HTMLInputElement).checked = true;
+			(document.getElementById('dark') as HTMLInputElement).checked = false;
 
-    })
+			setCSSVariables('light');
+		}
+	});
 </script>
 
 <slot />

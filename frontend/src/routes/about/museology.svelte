@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Layout from "../../__layout.svelte";
+	import Layout from '../../__layout.svelte';
 </script>
 
-<Layout pageTitle="About | Museology"></Layout>
+<Layout pageTitle="About | Museology" />
