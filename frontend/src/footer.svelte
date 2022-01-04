@@ -1,5 +1,8 @@
 <script lang="ts">
+import { browser } from '$app/env';
+
     import Divider from './design-elements/divider.svelte';
+    import FooterPolygon from './design-elements/footer-polygon.svelte';
     import GitHub from './social-media/github.svelte';
     import Gmail from './social-media/gmail.svelte';
     import LinkedIn from './social-media/linkedin.svelte';
@@ -7,6 +10,9 @@
     import Youtube from './social-media/youtube.svelte';
 
     const currentYear = new Date().getFullYear();
+
+    const isSmallPhone = browser ? window.matchMedia('(max-width: 350px)').matches : false;
+    const logoSize = isSmallPhone ? '64px' : '80px';
 
     const socialMedia = [
         {
@@ -69,9 +75,10 @@
         position: relative;
 
         div {
+            --polygon-width: 265.5px;
             position: absolute;
-            width: 70%;
-            left: 15%;
+            width: var(--polygon-width);
+            left: calc(50vw - var(--polygon-width) / 2);
             height: 205px;
             margin: 8px auto;
             display: grid;
@@ -80,6 +87,16 @@
             align-items: center;
             text-align: center;
             overflow-y: hidden;
+
+            @media screen and (max-width: 350px) {
+                --polygon-width: 250px;
+                height: 175px;
+                margin: 24px auto;
+            }
+
+            @media screen and (min-width: 614px) {
+                --polygon-width: 550px;
+            }
 
             a {
                 fill: var(--yellow);
@@ -108,6 +125,11 @@
                     width: 40px;
                     transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1);
 
+                    @media screen and (max-width: 350px) {
+                        height: 32px;
+                        width: 32px;
+                    }
+
                     &:hover {
                         transform: translate3d(0, -10px, 0);
                     }
@@ -135,11 +157,6 @@
             }
         }
 
-        svg {
-            display: block;
-            margin: 0 auto;
-        }
-    
         small {
             position: absolute;
             left: 8px;
@@ -153,15 +170,13 @@
 <footer>
     <div>
         <a href="/">
-            <img src="/kris-150x150.png" alt="Site logo" height="80" width="80">
+            <img src="/kris-150x150.png" alt="Site logo" height={logoSize} width={logoSize}>
         </a>
         {#each socialMedia as media}
             <a href={media.url}><svelte:component this={media.image.src} /></a>
         {/each}
     </div>
-    <svg width="355" height="205" viewBox="0 0 355 205" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M177.7 201.186C177.572 201.241 177.428 201.241 177.3 201.186L3.17096 125.278C2.90244 125.161 2.7916 124.839 2.93109 124.582L0.732758 123.391L2.93112 124.582L68.6377 3.2475C68.725 3.08614 68.8938 2.9856 69.0773 2.9856L285.923 2.9856C286.106 2.9856 286.275 3.08612 286.362 3.2475L352.069 124.582C352.208 124.839 352.098 125.161 351.829 125.278L177.7 201.186Z" fill="#1C00C5" stroke="#FFA800" stroke-width="5"/>
-    </svg>
+    <FooterPolygon />   
     <small>© Christopher Einarsson {currentYear}</small>
 </footer>
     

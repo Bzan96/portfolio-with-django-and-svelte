@@ -12,7 +12,7 @@
             maxWidth = Math.floor(document.documentElement.scrollWidth + offset)
             const midWayWidth = Math.floor(maxWidth / 3 + offset) ?? 0;
 
-            if(window.matchMedia('max-width: 500px').matches) {
+            if(window.matchMedia('(max-width: 500px)').matches) {
                 path = `M-25 125 S50 25 ${midWayWidth} 60 S355 50 ${maxWidth} 25`;
              } else {
                 path = `M-25 125 S50 25 ${midWayWidth} 80 S355 20 ${maxWidth} 55`;

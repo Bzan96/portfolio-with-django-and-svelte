@@ -7,7 +7,7 @@
     import Layout from "../__layout.svelte";
     import Divider from "../design-elements/divider.svelte";
 
-    const recentPostsCount = browser && window.matchMedia('max-width: 500px').matches ? 5 : 10;
+    const recentPostsCount = browser && window.matchMedia('(max-width: 500px)').matches ? 5 : 10;
 
     const card = {
         cardHeading: 'Lorem Ipsum',
